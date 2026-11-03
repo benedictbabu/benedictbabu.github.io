@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firmware & IoT Consultant | Portfolio</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            brand: {
+              dark: '#080c14',
+              surface: '#0f172a',
+              card: '#131d33',
+              border: '#1e293b',
+              accent: 'var(--accent-color, #00f2fe)',
+              accentGlow: 'var(--accent-glow, rgba(0, 242, 254, 0.15))',
+              secondary: 'var(--secondary-color, #10b981)',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --accent-color: #00f2fe;
+      --accent-glow: rgba(0, 242, 254, 0.16);
+      --secondary-color: #10b981;
+    }
+    .circuit-bg {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                        radial-gradient(rgba(0, 242, 254, 0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+    }
+    .glow-effect {
+      box-shadow: 0 0 25px -5px var(--accent-glow);
+    }
+    .border-glow:hover {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 20px -3px var(--accent-glow);
+    }
+  </style>
+</head>
+<body class="bg-[#080c14] text-slate-200 font-sans antialiased circuit-bg selection:bg-cyan-500/20 selection:text-cyan-300 min-h-screen flex flex-col justify-between">
+
+  <!-- Sticky Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-[#080c14]/85 border-b border-slate-800/80 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-xs text-[var(--accent-color)] group-hover:scale-105 transition-transform">
+          &lt;/&gt;
+        </div>
+        <div class="flex flex-col">
+          <span class="font-mono text-sm font-semibold tracking-wide text-white group-hover:text-[var(--accent-color)] transition-colors">dev.firmware()</span>
+          <span class="text-[10px] text-slate-400 font-mono">Bare-Metal • RTOS • IoT</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#about" class="hover:text-[var(--accent-color)] transition-colors">About</a>
+        <a href="#services" class="hover:text-[var(--accent-color)] transition-colors">Consulting</a>
+        <a href="#projects" class="hover:text-[var(--accent-color)] transition-colors">Projects</a>
+        <a href="#bench" class="hover:text-[var(--accent-color)] transition-colors">Lab Bench</a>
+        <a href="#contact" class="hover:text-[var(--accent-color)] transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action & Config Controls -->
+      <div class="flex items-center gap-3">
+        <button id="configToggleBtn" title="Customize Accent & Mode" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono bg-slate-800/90 hover:bg-slate-700/80 border border-slate-700 text-slate-300 transition-all">
+          <svg class="w-3.5 h-3.5 text-[var(--accent-color)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+          <span class="hidden sm:inline">Theme</span>
+        </button>
+
+        <a href="https://github.com" target="_blank" rel="noreferrer" class="p-2 rounded-md hover:bg-slate-800 text-slate-400 hover:text-white transition-colors" title="GitHub Profile">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-md bg-[var(--accent-color)] text-[#080c14] hover:opacity-90 transition-opacity font-mono">
+          Hire / Consult
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Config Drawer -->
+  <div id="configDrawer" class="hidden fixed top-16 right-4 z-50 w-72 p-4 bg-slate-900/95 border border-slate-700/80 rounded-xl backdrop-blur-xl shadow-2xl text-xs space-y-4">
+    <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+      <span class="font-mono font-semibold text-slate-200">Portfolio Theme Options</span>
+      <button id="closeConfigBtn" class="text-slate-400 hover:text-white">&times;</button>
+    </div>
+
+    <!-- Accent Color Chooser -->
+    <div>
+      <label class="block text-slate-400 font-mono mb-2">Accent Palette</label>
+      <div class="grid grid-cols-4 gap-2">
+        <button class="theme-btn h-7 rounded border border-cyan-400/50 bg-cyan-400/20 text-cyan-400 flex items-center justify-center font-mono font-bold" data-accent="#00f2fe" data-glow="rgba(0, 242, 254, 0.25)" data-secondary="#10b981">Cyan</button>
+        <button class="theme-btn h-7 rounded border border-emerald-400/50 bg-emerald-400/20 text-emerald-400 flex items-center justify-center font-mono font-bold" data-accent="#10b981" data-glow="rgba(16, 185, 129, 0.25)" data-secondary="#38bdf8">Mint</button>
+        <button class="theme-btn h-7 rounded border border-amber-400/50 bg-amber-400/20 text-amber-400 flex items-center justify-center font-mono font-bold" data-accent="#f59e0b" data-glow="rgba(245, 158, 11, 0.25)" data-secondary="#00f2fe">Amber</button>
+        <button class="theme-btn h-7 rounded border border-purple-400/50 bg-purple-400/20 text-purple-400 flex items-center justify-center font-mono font-bold" data-accent="#a855f7" data-glow="rgba(168, 85, 247, 0.25)" data-secondary="#ec4899">Violet</button>
+      </div>
+    </div>
+
+    <!-- Persona Mode Toggle -->
+    <div>
+      <label class="block text-slate-400 font-mono mb-2">Display Focus</label>
+      <div class="flex rounded-lg bg-slate-800 p-1 border border-slate-700">
+        <button id="modeAll" class="mode-tab flex-1 py-1 rounded text-center font-medium bg-slate-700 text-white transition-all">Hybrid</button>
+        <button id="modeCommercial" class="mode-tab flex-1 py-1 rounded text-center font-medium text-slate-400 hover:text-white transition-all">Commercial</button>
+        <button id="modeResearch" class="mode-tab flex-1 py-1 rounded text-center font-medium text-slate-400 hover:text-white transition-all">Research/PoC</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24">
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-6 sm:pt-12 pb-4">
+      <div class="max-w-3xl space-y-6">
+        
+        <!-- Status Pill -->
+        <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700/80 text-xs font-mono text-slate-300">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--secondary-color)] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--secondary-color)]"></span>
+          </span>
+          <span id="heroStatusText">Available for Commercial Consulting & Research PoCs</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          Embedded Firmware Engineer <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-color)] via-teal-200 to-[var(--secondary-color)]">& IoT Systems Consultant.</span>
+        </h1>
+
+        <!-- Bio text -->
+        <p class="text-base sm:text-lg text-slate-400 leading-relaxed font-light">
+          Bridging bare-metal code to commercial hardware. I consult for hardware startups and commercial IoT deployments, while actively mentoring researchers and tech enthusiasts on prototypes, bench bring-up, and proof-of-concept architectures.
+        </p>
+
+        <!-- CTA row -->
+        <div class="flex flex-wrap items-center gap-4 pt-2 font-mono text-xs sm:text-sm">
+          <a href="#projects" class="px-5 py-2.5 rounded-lg font-bold bg-[var(--accent-color)] text-[#080c14] hover:opacity-90 transition shadow-lg glow-effect">
+            &gt; Explore Projects
+          </a>
+          <a href="#contact" class="px-5 py-2.5 rounded-lg font-medium border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 transition">
+            Initiate Contact
+          </a>
+          <button onclick="copyEmailToClipboard()" id="quickCopyBtn" class="px-4 py-2.5 rounded-lg border border-dashed border-slate-700 hover:border-slate-500 text-slate-400 hover:text-white transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span id="copyBtnLabel">Copy email</span>
+          </button>
+        </div>
+
+        <!-- Hardware metrics snippet -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-800/80 font-mono text-xs">
+          <div>
+            <div class="text-xl sm:text-2xl font-bold text-white tracking-tight">100k+</div>
+            <div class="text-slate-500 mt-0.5">Firmware Nodes Deployed</div>
+          </div>
+          <div>
+            <div class="text-xl sm:text-2xl font-bold text-white tracking-tight">&lt; 15 µA</div>
+            <div class="text-slate-500 mt-0.5">Ultra-Low Sleep Targets</div>
+          </div>
+          <div>
+            <div class="text-xl sm:text-2xl font-bold text-white tracking-tight">20+</div>
+            <div class="text-slate-500 mt-0.5">Commercial & PoC Boards</div>
+          </div>
+          <div>
+            <div class="text-xl sm:text-2xl font-bold text-white tracking-tight">100%</div>
+            <div class="text-slate-500 mt-0.5">Custom BSP & Drivers</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Services / Focus Section -->
+    <section id="services" class="space-y-8">
+      <div>
+        <h2 class="text-xs font-mono uppercase tracking-widest text-[var(--accent-color)]">Core Capabilities</h2>
+        <p class="text-2xl sm:text-3xl font-bold text-white mt-1">From Bare-Metal Silicon to Edge Gateway</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800 border-glow transition duration-200">
+          <div class="w-10 h-10 rounded-lg bg-cyan-950/70 border border-cyan-800/40 flex items-center justify-center text-[var(--accent-color)] mb-4 font-mono font-bold">
+            01
+          </div>
+          <h3 class="text-lg font-semibold text-white">Commercial Firmware & BSPs</h3>
+          <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+            Production-grade drivers and low-level software for ARM Cortex-M/A, RISC-V, and ESP32. Specializing in FreeRTOS and Zephyr OS, secure bootloaders, fail-safe dual-bank OTA updates, and power profiling.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4 font-mono text-xs text-slate-300">
+            <span class="px-2.5 py-1 rounded bg-slate-800">FreeRTOS</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">Zephyr RTOS</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">Bare-Metal C</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">Secure Boot</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800 border-glow transition duration-200">
+          <div class="w-10 h-10 rounded-lg bg-teal-950/70 border border-teal-800/40 flex items-center justify-center text-[var(--secondary-color)] mb-4 font-mono font-bold">
+            02
+          </div>
+          <h3 class="text-lg font-semibold text-white">IoT Protocol & Edge Connectivity</h3>
+          <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+            Reliable device-to-cloud mesh: BLE (Long Range, Mesh), Cellular (LTE-M/NB-IoT), Wi-Fi, and LoRaWAN. Custom payloads, binary serialization (CBOR/Protobuf), TLS 1.3 encryption, and AWS IoT/Azure endpoints.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4 font-mono text-xs text-slate-300">
+            <span class="px-2.5 py-1 rounded bg-slate-800">BLE 5.x</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">NB-IoT / LTE-M</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">MQTT over TLS</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">LoRaWAN</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800 border-glow transition duration-200">
+          <div class="w-10 h-10 rounded-lg bg-amber-950/70 border border-amber-800/40 flex items-center justify-center text-amber-400 mb-4 font-mono font-bold">
+            03
+          </div>
+          <h3 class="text-lg font-semibold text-white">Rapid Hardware Prototyping & Bring-Up</h3>
+          <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+            Early-stage board bring-up, schematic & pinout reviews, trace debugging with logic analyzers, and sensor calibration. Converting breadboard PoCs into clean, testable commercial pre-production revisions.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4 font-mono text-xs text-slate-300">
+            <span class="px-2.5 py-1 rounded bg-slate-800">Schematic Review</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">JTAG/SWD Debug</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">Signal Profiling</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">Sensor Fusion</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800 border-glow transition duration-200">
+          <div class="w-10 h-10 rounded-lg bg-purple-950/70 border border-purple-800/40 flex items-center justify-center text-purple-400 mb-4 font-mono font-bold">
+            04
+          </div>
+          <h3 class="text-lg font-semibold text-white">Research Mentorship & Technical Advisory</h3>
+          <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+            Guiding academic labs, engineering students, and maker teams. Accelerating validation experiments, designing custom test jigs, writing automated verification testbenches (PyTest), and unblocking hardware bugs.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4 font-mono text-xs text-slate-300">
+            <span class="px-2.5 py-1 rounded bg-slate-800">HIL Test Automation</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">Academic Guidance</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">Research PoCs</span>
+            <span class="px-2.5 py-1 rounded bg-slate-800">Code Reviews</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <h2 class="text-xs font-mono uppercase tracking-widest text-[var(--accent-color)]">Selected Highlights</h2>
+          <p class="text-2xl sm:text-3xl font-bold text-white mt-1">Commercial Builds & Applied PoCs</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Commercial
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 inline-block ml-2"></span> Research/PoC
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projectsGrid">
+        
+        <!-- Project 1 (Commercial) -->
+        <div class="project-card commercial p-6 rounded-xl bg-slate-900/50 border border-slate-800/90 flex flex-col justify-between border-glow transition">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                Commercial Product
+              </span>
+              <span class="text-xs font-mono text-slate-500">STM32F4 + Quectel BG95</span>
+            </div>
+            <h3 class="text-xl font-bold text-white">Industrial Cellular IoT Gateway</h3>
+            <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+              Architected firmware for an edge telematics gateway monitoring solar inverters. Implemented FreeRTOS task prioritization, power-loss brownout protection, and robust rollback-enabled OTA over NB-IoT/MQTT.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800/80">
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-400 mb-4">
+              <span class="bg-slate-800 px-2 py-0.5 rounded">C</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">FreeRTOS</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">Modbus RTU</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">MQTT TLS</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono">
+              <span class="text-slate-400">Architecture Review</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-[var(--accent-color)]">Production Deployed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 (Commercial) -->
+        <div class="project-card commercial p-6 rounded-xl bg-slate-900/50 border border-slate-800/90 flex flex-col justify-between border-glow transition">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                Client Commercial
+              </span>
+              <span class="text-xs font-mono text-slate-500">Nordic nRF52840</span>
+            </div>
+            <h3 class="text-xl font-bold text-white">Sub-µA Smart Telemetry Tag</h3>
+            <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+              Engineered ultra-low-power firmware for cold-chain temperature & shock monitoring. Reached a sustained baseline of 9.4 µA sleep current with periodic BLE Advertising and encrypted flash logging.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800/80">
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-400 mb-4">
+              <span class="bg-slate-800 px-2 py-0.5 rounded">Zephyr RTOS</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">BLE 5.2</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">FlashDB</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">Power Profiling</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono">
+              <span class="text-slate-400">Design Verification</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-[var(--accent-color)]">Commercial Run</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 (Research / PoC) -->
+        <div class="project-card research p-6 rounded-xl bg-slate-900/50 border border-slate-800/90 flex flex-col justify-between border-glow transition">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                Research & Academic PoC
+              </span>
+              <span class="text-xs font-mono text-slate-500">Raspberry Pi CM4 + ESP32</span>
+            </div>
+            <h3 class="text-xl font-bold text-white">Automated HIL Firmware Test Rig</h3>
+            <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+              Designed a bench test fixture for student researchers to flash and validate motor control firmware. Uses automated serial CLI stimulus, relay glitch injection, and oscilloscope measurement capture via PyTest.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800/80">
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-400 mb-4">
+              <span class="bg-slate-800 px-2 py-0.5 rounded">Python</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">PyTest</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">SCPI / VISA</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">JTAG automation</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono">
+              <span class="text-slate-400">Open Source Tooling</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-cyan-400">Lab Validated</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 (Research / PoC) -->
+        <div class="project-card research p-6 rounded-xl bg-slate-900/50 border border-slate-800/90 flex flex-col justify-between border-glow transition">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                Enthusiast / PoC
+              </span>
+              <span class="text-xs font-mono text-slate-500">ESP32-S3 + IMU</span>
+            </div>
+            <h3 class="text-xl font-bold text-white">Edge Gesture Classifier on MCU</h3>
+            <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+              Mentored a maker team prototyping a wearable wand for gesture control. Built sensor fusion filters (Madgwick AHRS) in C++ and integrated a quantized TinyML model running on dual Xtensa cores at 160MHz.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-800/80">
+            <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-400 mb-4">
+              <span class="bg-slate-800 px-2 py-0.5 rounded">ESP-IDF</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">TinyML</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">I2C / SPI</span>
+              <span class="bg-slate-800 px-2 py-0.5 rounded">DSP</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-mono">
+              <span class="text-slate-400">Mentored Project</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-cyan-400">PoC Complete</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Lab Bench & Tech Stack -->
+    <section id="bench" class="space-y-8">
+      <div>
+        <h2 class="text-xs font-mono uppercase tracking-widest text-[var(--accent-color)]">Workbench & Stack</h2>
+        <p class="text-2xl sm:text-3xl font-bold text-white mt-1">Tools of the Trade</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+        
+        <!-- MCUs & Silicon -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2 mb-4">
+            <span class="text-[var(--accent-color)]">#</span> Silicon & Target Targets
+          </h3>
+          <ul class="space-y-2.5 text-slate-400">
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>STM32 (Cortex-M0+/M4/M7)</span>
+              <span class="text-slate-600">HAL/LL</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>Nordic nRF52/nRF53</span>
+              <span class="text-slate-600">Zephyr/NCS</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>Espressif ESP32-S3 / C3 / C6</span>
+              <span class="text-slate-600">ESP-IDF</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>Raspberry Pi RP2040 / Pico</span>
+              <span class="text-slate-600">C/C++ SDK</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>NXP i.MX RT Series</span>
+              <span class="text-slate-600">MCUXpresso</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tooling & Bench Hardware -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2 mb-4">
+            <span class="text-[var(--accent-color)]">#</span> Bench Instruments & Debug
+          </h3>
+          <ul class="space-y-2.5 text-slate-400">
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>Saleae Logic Pro 16</span>
+              <span class="text-slate-600">Protocol Decoders</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>Rigol Digital Oscilloscope</span>
+              <span class="text-slate-600">Signal Timing</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>SEGGER J-Link Plus</span>
+              <span class="text-slate-600">SWD / RTT Log</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>Nordic Power Profiler Kit II</span>
+              <span class="text-slate-600">Current Trace</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>CAN / RS485 / Modbus Bus</span>
+              <span class="text-slate-600">Transceivers</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Software Stack -->
+        <div class="p-6 rounded-xl bg-slate-900/60 border border-slate-800">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2 mb-4">
+            <span class="text-[var(--accent-color)]">#</span> Code & Infrastructure
+          </h3>
+          <ul class="space-y-2.5 text-slate-400">
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>C (C99 / C11) & Modern C++</span>
+              <span class="text-slate-600">Embedded</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>FreeRTOS & Zephyr RTOS</span>
+              <span class="text-slate-600">Kernels</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>Python & PyTest</span>
+              <span class="text-slate-600">HIL & Tooling</span>
+            </li>
+            <li class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+              <span>Git & GitHub Actions</span>
+              <span class="text-slate-600">Embedded CI</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>CMake & Makefiles</span>
+              <span class="text-slate-600">Build Systems</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About / Philosophy -->
+    <section id="about" class="p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-slate-900 to-[#0e1726] border border-slate-800">
+      <div class="max-w-3xl space-y-4">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-[var(--accent-color)]">Background & Mentorship</h2>
+        <h3 class="text-2xl sm:text-3xl font-bold text-white">Pragmatic firmware for commercial reliability.</h3>
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+          I balance commercial consulting for production IoT products with hands-on technical guidance for enthusiasts, graduate students, and early-stage startup founders. Whether it is solving a tricky race condition in FreeRTOS, optimizing power states to squeeze extra months out of a coin cell, or architecting a bulletproof test harness, I believe in writing readable, resilient low-level code that doesn't buckle under real-world noise.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="pt-6 pb-12 border-t border-slate-800/80">
+      <div class="max-w-2xl mx-auto text-center space-y-6">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-[var(--accent-color)]">Initiate Collaboration</h2>
+        <p class="text-3xl font-extrabold text-white">Have a product in mind or a PoC to bring up?</p>
+        <p class="text-slate-400 text-sm">
+          Whether you need an architectural review, full firmware development, or mentorship unblocking your lab prototype, I'm always up for an interesting hardware discussion.
+        </p>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4 font-mono text-xs">
+          <!-- Primary Mailto CTA -->
+          <a href="mailto:your.email@example.com?subject=Embedded%20Consulting%20/%20PoC%20Inquiry" class="w-full sm:w-auto px-6 py-3 rounded-lg font-bold bg-[var(--accent-color)] text-[#080c14] hover:opacity-95 transition shadow-lg">
+            Send an Email Inquiry
+          </a>
+          <!-- Social / LinkedIn -->
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="w-full sm:w-auto px-6 py-3 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-white transition">
+            Connect on LinkedIn
+          </a>
+        </div>
+
+        <div class="pt-6 text-slate-500 text-xs font-mono">
+          <span>Based in UTC / Remote Friendly</span> • <span>Commercial NDAs Welcome</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 py-8 bg-[#06090f]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+      <div>
+        © <span id="currentYear"></span> Firmware Engineer & IoT Consultant. Hosted on GitHub Pages.
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="#hero" class="hover:text-slate-300 transition">Back to top ↑</a>
+        <a href="https://github.com" target="_blank" rel="noreferrer" class="hover:text-slate-300 transition">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast (for copy actions) -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-4 py-2.5 rounded-lg bg-slate-800 text-white border border-slate-700 shadow-2xl font-mono text-xs flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <span id="toastMsg">Email copied to clipboard!</span>
+  </div>
+
+  <script>
+    // Set dynamic current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Theme Config Drawer Toggles
+    const configToggleBtn = document.getElementById('configToggleBtn');
+    const closeConfigBtn = document.getElementById('closeConfigBtn');
+    const configDrawer = document.getElementById('configDrawer');
+
+    configToggleBtn.addEventListener('click', () => {
+      configDrawer.classList.toggle('hidden');
+    });
+
+    closeConfigBtn.addEventListener('click', () => {
+      configDrawer.classList.add('hidden');
+    });
+
+    // Theme Accent Switcher
+    const themeButtons = document.querySelectorAll('.theme-btn');
+    themeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const accent = btn.getAttribute('data-accent');
+        const glow = btn.getAttribute('data-glow');
+        const secondary = btn.getAttribute('data-secondary');
+
+        document.documentElement.style.setProperty('--accent-color', accent);
+        document.documentElement.style.setProperty('--accent-glow', glow);
+        document.documentElement.style.setProperty('--secondary-color', secondary);
+
+        showToast('Accent theme updated');
+      });
+    });
+
+    // Mode Focus Filter (Hybrid / Commercial / Research)
+    const modeTabs = document.querySelectorAll('.mode-tab');
+    const projectCards = document.querySelectorAll('.project-card');
+    const heroStatusText = document.getElementById('heroStatusText');
+
+    modeTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        modeTabs.forEach(t => {
+          t.classList.remove('bg-slate-700', 'text-white');
+          t.classList.add('text-slate-400');
+        });
+        tab.classList.add('bg-slate-700', 'text-white');
+        tab.classList.remove('text-slate-400');
+
+        const mode = tab.id;
+        if (mode === 'modeCommercial') {
+          projectCards.forEach(c => c.classList.toggle('hidden', !c.classList.contains('commercial')));
+          heroStatusText.textContent = 'Specializing in Commercial Firmware & Product Engineering';
+        } else if (mode === 'modeResearch') {
+          projectCards.forEach(c => c.classList.toggle('hidden', !c.classList.contains('research')));
+          heroStatusText.textContent = 'Open for Academic Guidance, Lab Rigs & Prototype PoCs';
+        } else {
+          projectCards.forEach(c => c.classList.remove('hidden'));
+          heroStatusText.textContent = 'Available for Commercial Consulting & Research PoCs';
+        }
+      });
+    });
+
+    // Fallback-safe clipboard copy function
+    function copyEmailToClipboard() {
+      const email = 'your.email@example.com'; // Replace with your actual email
+      const textarea = document.createElement('textarea');
+      textarea.value = email;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      
+      try {
+        document.execCommand('copy');
+        showToast('Email address copied to clipboard!');
+      } catch (err) {
+        window.location.href = `mailto:${email}`;
+      } finally {
+        document.body.removeChild(textarea);
+      }
+    }
+
+    // Toast alert helper
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
