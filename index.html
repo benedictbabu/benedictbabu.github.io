@@ -26,3 +26,505 @@
     }
 
     * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Container */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header & Navigation */
+    header {
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: var(--accent);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      font-size: 0.875rem;
+      font-family: var(--font-mono);
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 4.5rem 0 3.5rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-dim);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .status-ping {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .bio {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 640px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-mono);
+    }
+
+    .btn-primary {
+      background: #1e222b;
+      border: 1px solid var(--border-accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+      color: var(--text-main);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title::before {
+      content: '//';
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    /* Focus & Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 8px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .service-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    .service-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: #fff;
+    }
+
+    .service-card p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Skills Pill Grid */
+    .skills-category {
+      margin-bottom: 1.75rem;
+    }
+
+    .skills-category h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      margin-bottom: 0.75rem;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+
+    /* Projects / Highlights */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-accent);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .project-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .project-stack span {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #94a3b8;
+      background: var(--bg-base);
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    /* Contact Section */
+    .contact-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .contact-box h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: #fff;
+    }
+
+    .contact-box p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .nav-links { display: none; }
+      .hero { padding: 3rem 0 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <nav>
+        <div class="brand">
+          <span class="brand-dot"></span>
+          benedictbabu.dev
+        </div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#focus">Focus</a></li>
+          <li><a href="#skills">Tech</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <main>
+      <section class="hero" id="about">
+        <div class="status-badge">
+          <span class="status-ping"></span>
+          Available for Consulting & PoC Guidance
+        </div>
+        <h1>Benedict Babu</h1>
+        <div class="subtitle">Embedded Firmware Engineer & IoT Consultant</div>
+        <p class="bio">
+          Designing production-grade firmware for commercial embedded hardware. I partner with companies to take connected devices from architecture to mass deployment, and mentor students and makers through rapid PoC and research developments.
+        </p>
+        <div class="hero-actions">
+          <a href="mailto:benedictbabu@hotmail.com" class="btn btn-primary">Get in Touch</a>
+          <a href="https://github.com/benedictbabu" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+          <a href="https://www.linkedin.com/in/-benedictbabu/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
+        </div>
+      </section>
+
+      <!-- Services & Focus -->
+      <section id="focus">
+        <h2 class="section-title">What I Do</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Commercial Firmware Development</h3>
+            <p>Production bare-metal and RTOS firmware designed for power efficiency, real-time stability, OTA upgrades, and industrial certification.</p>
+          </div>
+          <div class="service-card">
+            <h3>IoT Architecture & Consulting</h3>
+            <p>End-to-end device architecture, sensor integration, secure communication protocols, and cloud edge connectivity for commercial deployments.</p>
+          </div>
+          <div class="service-card">
+            <h3>Research & PoC Mentorship</h3>
+            <p>Hands-on guidance for engineering students and makers turning experimental hardware concepts into working, verifiable prototypes.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technical Arsenal -->
+      <section id="skills">
+        <h2 class="section-title">Core Stack</h2>
+
+        <div class="skills-category">
+          <h4>Firmware & Embedded Systems</h4>
+          <div class="pill-list">
+            <span class="pill">Embedded C</span>
+            <span class="pill">C++</span>
+            <span class="pill">FreeRTOS</span>
+            <span class="pill">Zephyr RTOS</span>
+            <span class="pill">Bare-Metal ARM Cortex</span>
+            <span class="pill">ESP-IDF</span>
+            <span class="pill">STM32 / HAL</span>
+          </div>
+        </div>
+
+        <div class="skills-category">
+          <h4>Connectivity & IoT Protocols</h4>
+          <div class="pill-list">
+            <span class="pill">BLE</span>
+            <span class="pill">Wi-Fi (802.11)</span>
+            <span class="pill">MQTT / TLS</span>
+            <span class="pill">LoRaWAN</span>
+            <span class="pill">CAN / CAN-FD</span>
+            <span class="pill">Modbus</span>
+            <span class="pill">I2C / SPI / UART</span>
+          </div>
+        </div>
+
+        <div class="skills-category">
+          <h4>Hardware Bring-Up & Tooling</h4>
+          <div class="pill-list">
+            <span class="pill">JTAG / SWD Debugging</span>
+            <span class="pill">Logic Analyzers</span>
+            <span class="pill">Oscilloscopes</span>
+            <span class="pill">Schematic Review</span>
+            <span class="pill">Git / CI-CD</span>
+            <span class="pill">Python (Automation & Test)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Selected Highlights -->
+      <section id="projects">
+        <h2 class="section-title">Selected Highlights</h2>
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-title">Commercial IoT Gateway Node</div>
+            <div class="project-tag">Commercial Deployment</div>
+          </div>
+          <p class="project-desc">Industrial sensor node firmware featuring low-power sleep modes, secure TLS data logging, fail-safe dual-bank OTA updates, and reliable mesh connectivity.</p>
+          <div class="project-stack">
+            <span>FreeRTOS</span>
+            <span>ARM Cortex-M4</span>
+            <span>MQTT</span>
+            <span>Secure Boot</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-title">Academic & Maker PoC Mentorship</div>
+            <div class="project-tag">Research & Community</div>
+          </div>
+          <p class="project-desc">Guided multiple research initiatives and student teams across sensor fusion, embedded machine learning feasibility, and rapid hardware validation pipelines.</p>
+          <div class="project-stack">
+            <span>Hardware Architecture</span>
+            <span>Driver Development</span>
+            <span>PoC Scoping</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact">
+        <div class="contact-box">
+          <h3>Let's Build Hardware</h3>
+          <p>Looking for technical consulting on a commercial IoT device, or need firmware guidance for an upcoming research PoC?</p>
+          <div class="contact-links">
+            <a href="mailto:benedictbabu@hotmail.com" class="btn btn-primary">benedictbabu@hotmail.com</a>
+            <a href="https://www.linkedin.com/in/-benedictbabu/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Connect on LinkedIn</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 Benedict Babu &bull; Built for GitHub Pages</p>
+    </footer>
+  </div>
+
+</body>
+</html>
