@@ -1,572 +1,677 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Benedict Babu | Embedded Firmware Engineer & IoT Consultant</title>
-  <meta name="description" content="Portfolio of Benedict Babu, Embedded Firmware Engineer and IoT Consultant specializing in commercial IoT, RTOS, board bring-up, and research PoCs." />
-  
-  <!-- Fonts -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benedict Babu | Embedded Firmware Engineer &amp; IoT Consultant</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            matte: {
-              950: '#08090a',
-              900: '#0e1013',
-              850: '#14171c',
-              800: '#1a1e24',
-              700: '#262c36',
-              600: '#3a4250',
-              border: '#232934',
-            },
-            accent: {
-              emerald: '#10b981',
-              cyan: '#38bdf8',
-            }
-          }
-        }
-      }
-    }
-  </script>
-
   <style>
-    /* Custom Matte Finishes & Subtle Glows */
-    ::selection {
-      background-color: rgba(16, 185, 129, 0.25);
-      color: #6ee7b7;
-    }
-    
-    .bg-mesh {
-      background-image: 
-        radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.04) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.04) 0px, transparent 50%),
-        radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 28px 28px;
+    :root {
+      --bg: #090d16;
+      --surface: #101726;
+      --surface-border: #1e293b;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
     }
 
-    .card-matte {
-      background: linear-gradient(180deg, #13161c 0%, #0e1013 100%);
-      border: 1px solid #1f2530;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .card-matte:hover {
-      border-color: #333d4e;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -8px rgba(16, 185, 129, 0.12);
+    html {
+      scroll-behavior: smooth;
     }
 
-    .glow-pill {
-      box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.2);
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--surface-border);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-badge {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      color: var(--accent);
+    }
+
+    .brand-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .brand-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-mono);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #041019;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: rgba(56, 189, 248, 0.05);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    #hero {
+      padding: 6rem 0 4rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    }
+
+    .hero-title {
+      font-size: 3.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      font-family: var(--font-mono);
+    }
+
+    .hero-intro {
+      max-width: 680px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--surface-border);
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 1.25rem;
+      border-radius: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-val {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    /* Sections Shared */
+    section {
+      padding: 5rem 0;
+      border-top: 1px solid var(--surface-border);
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-sub {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    /* Grid Layouts */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 1.75rem;
+    }
+
+    .card-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--surface-border);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    .services-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .services-list li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .services-list span {
+      color: var(--accent);
+      margin-right: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--surface-border);
+      padding: 2.5rem 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+      .hero-title {
+        font-size: 2.25rem;
+      }
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
-
-<body class="bg-matte-950 text-slate-300 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500/20 selection:text-emerald-300 bg-mesh">
+<body>
 
   <!-- Header / Navigation -->
-  <header class="sticky top-0 z-40 backdrop-blur-md bg-matte-950/85 border-b border-matte-border">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="#hero" class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-lg bg-matte-850 border border-matte-700 flex items-center justify-center font-mono font-bold text-xs text-accent-emerald group-hover:border-accent-emerald transition-colors">
-          BB
-        </div>
-        <div class="flex flex-col">
-          <span class="font-mono text-sm font-semibold tracking-wide text-white group-hover:text-accent-emerald transition-colors">Benedict Babu</span>
-          <span class="text-[10px] text-slate-400 font-mono tracking-wider">Firmware & IoT</span>
+  <header>
+    <div class="container nav-container">
+      <a href="#hero" class="brand">
+        <div class="brand-badge">BB</div>
+        <div class="brand-meta">
+          <span class="brand-name">Benedict Babu</span>
+          <span class="brand-title">Firmware &amp; IoT</span>
         </div>
       </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-7 text-xs font-mono text-slate-400">
-        <a href="#about" class="hover:text-white transition-colors">/about</a>
-        <a href="#skills" class="hover:text-white transition-colors">/skills</a>
-        <a href="#services" class="hover:text-white transition-colors">/services</a>
-        <a href="#projects" class="hover:text-white transition-colors">/projects</a>
-        <a href="#contact" class="hover:text-white transition-colors">/contact</a>
+      <nav>
+        <a href="#about">/about</a>
+        <a href="#skills">/skills</a>
+        <a href="#services">/services</a>
+        <a href="#projects">/projects</a>
+        <a href="#contact">/contact</a>
       </nav>
 
-      <!-- Action Pill & Social -->
-      <div class="flex items-center gap-3">
-        <a href="https://github.com/benedictbabu" target="_blank" rel="noreferrer" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-matte-850 transition" title="GitHub Profile">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <div class="nav-actions">
+        <a href="https://github.com/benedictbabu" rel="noreferrer" target="_blank" title="GitHub Profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
-        <a href="https://www.linkedin.com/in/-benedictbabu/" target="_blank" rel="noreferrer" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-matte-850 transition" title="LinkedIn Profile">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        <a href="https://www.linkedin.com/in/-benedictbabu/" rel="noreferrer" target="_blank" title="LinkedIn Profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
         </a>
-        <a href="#contact" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded-lg bg-matte-800 border border-matte-700 hover:border-slate-500 text-slate-200 transition">
-          Let's Talk
-        </a>
+        <a href="#contact" class="btn btn-secondary">Let's Talk</a>
       </div>
     </div>
   </header>
 
-  <!-- Main Content Container -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-28">
-
+  <main>
     <!-- Hero Section -->
-    <section id="hero" class="pt-4 sm:pt-10">
-      <div class="max-w-3xl space-y-6">
-        
-        <!-- Status Indicator -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-matte-900 border border-matte-border text-xs font-mono text-slate-300">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-emerald opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-emerald"></span>
-          </span>
-          <span>Available for consulting & PoC advisory</span>
+    <section id="hero">
+      <div class="container">
+        <div class="status-badge">
+          <span class="pulse-dot"></span>
+          <span>Available for consulting &amp; PoC advisory</span>
         </div>
 
-        <!-- Name & Subtitle -->
-        <div class="space-y-3">
-          <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white">
-            Benedict Babu
-          </h1>
-          <p class="text-xl sm:text-2xl font-mono text-accent-cyan font-medium">
-            Embedded Firmware Engineer & IoT Consultant
-          </p>
-        </div>
+        <h1 class="hero-title">Benedict Babu</h1>
+        <p class="hero-subtitle">Embedded Firmware Engineer &amp; IoT Consultant</p>
 
-        <!-- Core Mission / Bio -->
-        <p class="text-slate-400 text-base sm:text-lg leading-relaxed font-normal">
+        <p class="hero-intro">
           Building production-grade firmware for commercial IoT devices, robust board bring-up, and embedded Linux BSPs. I partner with commercial product teams to ship reliable hardware and mentor researchers and makers turning early-stage ideas into solid silicon reality.
         </p>
 
-        <!-- CTAs & Social Links -->
-        <div class="flex flex-wrap items-center gap-3 pt-3 font-mono text-xs">
-          <a href="#contact" class="px-5 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-matte-950 font-bold transition shadow-lg glow-pill">
-            &gt; Contact Me
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">&gt; Contact Me</a>
+          <a href="#projects" class="btn btn-secondary">View Projects</a>
+          <a 
+            href="mailto:benedictbabu@hotmail.com?subject=Resume%20Request%20-%20Benedict%20Babu&body=Hi%20Benedict,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20request%20a%20copy%20of%20your%20resume.%0D%0A%0D%0ACompany%20/%20Organization:%20%0D%0ARole%20Details:%20%0D%0A%0D%0ABest%20regards," 
+            class="btn btn-outline"
+          >
+            Request Resume ↗
           </a>
-          <a href="#projects" class="px-5 py-2.5 rounded-lg bg-matte-850 hover:bg-matte-800 border border-matte-border text-slate-200 hover:text-white transition">
-            View Projects
-          </a>
-          <button onclick="copyEmailToClipboard()" id="copyEmailHeroBtn" class="px-4 py-2.5 rounded-lg border border-dashed border-matte-border hover:border-slate-500 text-slate-400 hover:text-slate-200 transition flex items-center gap-2">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-            <span id="copyBtnText">benedictbabu@hotmail.com</span>
-          </button>
         </div>
 
-        <!-- Meta Metrics / Highlights -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-matte-border font-mono text-xs">
-          <div>
-            <div class="text-slate-500">Focus</div>
-            <div class="text-white font-medium mt-0.5">Firmware & IoT</div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-label">Focus</div>
+            <div class="stat-val">Firmware &amp; IoT</div>
           </div>
-          <div>
-            <div class="text-slate-500">Kernels</div>
-            <div class="text-white font-medium mt-0.5">FreeRTOS / Zephyr</div>
+          <div class="stat-card">
+            <div class="stat-label">Kernels</div>
+            <div class="stat-val">FreeRTOS / Zephyr</div>
           </div>
-          <div>
-            <div class="text-slate-500">Hardware Debug</div>
-            <div class="text-white font-medium mt-0.5">Logic / SWD / JTAG</div>
+          <div class="stat-card">
+            <div class="stat-label">Hardware Debug</div>
+            <div class="stat-val">Logic / SWD / JTAG</div>
           </div>
-          <div>
-            <div class="text-slate-500">Advisory</div>
-            <div class="text-white font-medium mt-0.5">Commercial & PoC</div>
+          <div class="stat-card">
+            <div class="stat-label">Advisory</div>
+            <div class="stat-val">Commercial &amp; PoC</div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- Core Technical Stack -->
-    <section id="skills" class="space-y-6">
-      <div class="space-y-1">
-        <h2 class="text-xs font-mono uppercase tracking-widest text-accent-emerald">// 01. Technical Arsenal</h2>
-        <p class="text-2xl sm:text-3xl font-bold text-white">Silicon, Software & Instruments</p>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        
-        <!-- Skill 1 -->
-        <div class="card-matte p-5 rounded-xl flex flex-col justify-between">
-          <div>
-            <div class="text-xs font-mono text-accent-emerald mb-2">01 / LOW-LEVEL</div>
-            <h3 class="text-base font-semibold text-white mb-2">Embedded Firmware</h3>
-            <p class="text-xs text-slate-400 leading-relaxed mb-4">
-              Bare-metal C and RTOS development with clean separation of hardware abstraction layers and deterministic timing.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-300">
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">C / Modern C++</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Bare-Metal</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">FreeRTOS</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Zephyr RTOS</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">STM32 / ESP32</span>
-          </div>
+    <!-- Technical Arsenal -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">// 01. Technical Arsenal</div>
+          <div class="section-sub">Silicon, Software &amp; Instruments</div>
         </div>
 
-        <!-- Skill 2 -->
-        <div class="card-matte p-5 rounded-xl flex flex-col justify-between">
-          <div>
-            <div class="text-xs font-mono text-accent-cyan mb-2">02 / EMBEDDED OS</div>
-            <h3 class="text-base font-semibold text-white mb-2">Linux & BSP</h3>
-            <p class="text-xs text-slate-400 leading-relaxed mb-4">
-              Configuring customized distributions, boot stages, device tree overlays, and low-level kernel drivers.
-            </p>
+        <div class="grid-2x2">
+          <div class="card">
+            <div class="card-meta">01 / LOW-LEVEL</div>
+            <h3 class="card-title">Embedded Firmware</h3>
+            <p class="card-desc">Bare-metal C and RTOS development with clean separation of hardware abstraction layers and deterministic timing.</p>
+            <div class="tags">
+              <span class="tag">C / Modern C++</span>
+              <span class="tag">Bare-Metal</span>
+              <span class="tag">FreeRTOS</span>
+              <span class="tag">Zephyr RTOS</span>
+              <span class="tag">STM32 / ESP32</span>
+            </div>
           </div>
-          <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-300">
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Embedded Linux</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Yocto Project</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">U-Boot</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Device Drivers</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Device Tree</span>
+
+          <div class="card">
+            <div class="card-meta">02 / EMBEDDED OS</div>
+            <h3 class="card-title">Linux &amp; BSP</h3>
+            <p class="card-desc">Configuring customized distributions, boot stages, device tree overlays, and low-level kernel drivers.</p>
+            <div class="tags">
+              <span class="tag">Embedded Linux</span>
+              <span class="tag">Yocto Project</span>
+              <span class="tag">U-Boot</span>
+              <span class="tag">Device Drivers</span>
+              <span class="tag">Device Tree</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-meta">03 / CONNECTIVITY</div>
+            <h3 class="card-title">Protocols &amp; IoT</h3>
+            <p class="card-desc">Peripheral telemetry buses and robust wireless networking for battery-constrained remote edge applications.</p>
+            <div class="tags">
+              <span class="tag">BLE &amp; Mesh</span>
+              <span class="tag">Wi-Fi &amp; LoRa</span>
+              <span class="tag">MQTT / TLS</span>
+              <span class="tag">CAN Bus / Modbus</span>
+              <span class="tag">I2C / SPI / UART</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-meta">04 / BENCH &amp; CI</div>
+            <h3 class="card-title">Tooling &amp; Testing</h3>
+            <p class="card-desc">Hardware-in-the-loop validation, deep signal probing, and automated verification suites.</p>
+            <div class="tags">
+              <span class="tag">Logic Analyzers</span>
+              <span class="tag">Oscilloscopes</span>
+              <span class="tag">JTAG / GDB</span>
+              <span class="tag">PyTest / Python</span>
+              <span class="tag">Git Actions HIL</span>
+            </div>
           </div>
         </div>
-
-        <!-- Skill 3 -->
-        <div class="card-matte p-5 rounded-xl flex flex-col justify-between">
-          <div>
-            <div class="text-xs font-mono text-accent-emerald mb-2">03 / CONNECTIVITY</div>
-            <h3 class="text-base font-semibold text-white mb-2">Protocols & IoT</h3>
-            <p class="text-xs text-slate-400 leading-relaxed mb-4">
-              Peripheral telemetry buses and robust wireless networking for battery-constrained remote edge applications.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-300">
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">BLE & Mesh</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Wi-Fi & LoRa</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">MQTT / TLS</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">CAN Bus / Modbus</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">I2C / SPI / UART</span>
-          </div>
-        </div>
-
-        <!-- Skill 4 -->
-        <div class="card-matte p-5 rounded-xl flex flex-col justify-between">
-          <div>
-            <div class="text-xs font-mono text-accent-cyan mb-2">04 / BENCH & CI</div>
-            <h3 class="text-base font-semibold text-white mb-2">Tooling & Testing</h3>
-            <p class="text-xs text-slate-400 leading-relaxed mb-4">
-              Hardware-in-the-loop validation, deep signal probing, and automated verification suites.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-1.5 font-mono text-[11px] text-slate-300">
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Logic Analyzers</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Oscilloscopes</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">JTAG / GDB</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">PyTest / Python</span>
-            <span class="px-2 py-0.5 rounded bg-matte-850 border border-matte-border">Git Actions HIL</span>
-          </div>
-        </div>
-
       </div>
     </section>
 
-    <!-- Services / Offerings -->
-    <section id="services" class="space-y-6">
-      <div class="space-y-1">
-        <h2 class="text-xs font-mono uppercase tracking-widest text-accent-emerald">// 02. Consulting & Advisory</h2>
-        <p class="text-2xl sm:text-3xl font-bold text-white">How I Collaborate</p>
-      </div>
+    <!-- Consulting & Advisory -->
+    <section id="services">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">// 02. Consulting &amp; Advisory</div>
+          <div class="section-sub">How I Collaborate</div>
+        </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- Card 1 -->
-        <div class="card-matte p-6 rounded-xl border-l-2 border-l-accent-emerald">
-          <div class="w-9 h-9 rounded-lg bg-matte-850 border border-matte-border flex items-center justify-center font-mono text-accent-emerald mb-4 font-bold text-sm">
-            01
+        <div class="grid-2x2">
+          <div class="card">
+            <div class="card-meta">01</div>
+            <h3 class="card-title">Commercial IoT &amp; Firmware Development</h3>
+            <p class="card-desc">Production firmware architecture with deterministic multitasking, low-power duty cycling, fail-safe dual-bank OTA updates, and encrypted telemetry pipelines.</p>
+            <ul class="services-list">
+              <li><span>→</span> Production RTOS applications</li>
+              <li><span>→</span> Secure boot &amp; remote updates</li>
+              <li><span>→</span> Power budget optimization</li>
+            </ul>
           </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Commercial IoT & Firmware Development</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Production firmware architecture with deterministic multitasking, low-power duty cycling, fail-safe dual-bank OTA updates, and encrypted telemetry pipelines.
+
+          <div class="card">
+            <div class="card-meta">02</div>
+            <h3 class="card-title">Architecture &amp; Board Bring-Up</h3>
+            <p class="card-desc">Turning fresh silicon and PCB prototypes into running systems. Schematic sanity reviews, pin multiplexing, clock setup, bus signal debugging, and custom BSPs.</p>
+            <ul class="services-list">
+              <li><span>→</span> Hardware bring-up &amp; fault finding</li>
+              <li><span>→</span> Peripheral driver development</li>
+              <li><span>→</span> Linux device tree configuration</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-meta">03</div>
+            <h3 class="card-title">Research &amp; Academic PoC Mentorship</h3>
+            <p class="card-desc">Advising engineering students, researchers, and early-stage makers on transforming experimental hardware concepts into functional, testable prototypes.</p>
+            <ul class="services-list">
+              <li><span>→</span> Architecture validation &amp; selection</li>
+              <li><span>→</span> Firmware review &amp; unblocking</li>
+              <li><span>→</span> Automated test bench guidance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Selected Works -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">// 03. Selected Works</div>
+          <div class="section-sub">Production Firmware &amp; Applied PoCs</div>
+        </div>
+
+        <div class="grid-2x2">
+          <div class="card">
+            <div class="card-meta">STM32F4 + Cellular &bull; Commercial</div>
+            <h3 class="card-title">Industrial IoT Gateway &amp; Telemetry Node</h3>
+            <p class="card-desc">Resilient edge telematics device polling industrial Modbus sensors with secure transmission via MQTT over TLS. Implemented dual-bank flash failback recovery for robust field deployment.</p>
+            <div class="tags">
+              <span class="tag">FreeRTOS</span>
+              <span class="tag">C</span>
+              <span class="tag">LTE-M</span>
+              <span class="tag">Modbus</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-meta">nRF52840 &bull; Ultra Low Power</div>
+            <h3 class="card-title">RTOS Low-Power BLE Sensor Tag</h3>
+            <p class="card-desc">Sub-12µA average current telemetry beacon monitoring environmental factors. Utilized Zephyr RTOS power management hooks, flash ring-buffers, and encrypted BLE Long Range advertisements.</p>
+            <div class="tags">
+              <span class="tag">Zephyr RTOS</span>
+              <span class="tag">BLE 5.2</span>
+              <span class="tag">SPI Sensors</span>
+              <span class="tag">Nordic PPK</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-meta">NXP i.MX / Allwinner &bull; BSP / Linux</div>
+            <h3 class="card-title">Custom Yocto BSP &amp; Carrier Bring-Up</h3>
+            <p class="card-desc">Bespoke Linux image creation using custom Yocto layers. Configured U-Boot splash screens, custom device tree overlays for specialized I2C peripheral chips, and PyTest validation rigs.</p>
+            <div class="tags">
+              <span class="tag">Yocto / BitBake</span>
+              <span class="tag">Linux Kernel</span>
+              <span class="tag">Device Tree</span>
+              <span class="tag">U-Boot</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Background -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">// 04. Background</div>
+          <div class="section-sub">Reliable firmware from bare metal to edge connectivity.</div>
+        </div>
+        <div style="max-width: 800px; color: var(--text-muted); font-size: 1rem; line-height: 1.8;">
+          <p style="margin-bottom: 1.25rem;">
+            I am Benedict Babu, an Embedded Firmware Engineer and IoT Consultant. My work centers on building maintainable low-level software that performs reliably in the field—whether optimizing sleep states down to single-digit microamps, crafting clean RTOS architectures, or unblocking tricky hardware bring-ups.
           </p>
-          <ul class="text-xs font-mono text-slate-400 space-y-1.5 border-t border-matte-border pt-4">
-            <li class="flex items-center gap-2">
-              <span class="text-accent-emerald">→</span> Production RTOS applications
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="text-accent-emerald">→</span> Secure boot & remote updates
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="text-accent-emerald">→</span> Power budget optimization
-            </li>
-          </ul>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card-matte p-6 rounded-xl border-l-2 border-l-accent-cyan">
-          <div class="w-9 h-9 rounded-lg bg-matte-850 border border-matte-border flex items-center justify-center font-mono text-accent-cyan mb-4 font-bold text-sm">
-            02
-          </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Architecture & Board Bring-Up</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Turning fresh silicon and PCB prototypes into running systems. Schematic sanity reviews, pin multiplexing, clock setup, bus signal debugging, and custom BSPs.
+          <p>
+            Beyond commercial consulting for startups and hardware companies, I dedicate time to consulting with student teams, academic researchers, and makers on proof-of-concept builds, schematic validation, and test automation.
           </p>
-          <ul class="text-xs font-mono text-slate-400 space-y-1.5 border-t border-matte-border pt-4">
-            <li class="flex items-center gap-2">
-              <span class="text-accent-cyan">→</span> Hardware bring-up & fault finding
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="text-accent-cyan">→</span> Peripheral driver development
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="text-accent-cyan">→</span> Linux device tree configuration
-            </li>
-          </ul>
         </div>
-
-        <!-- Card 3 -->
-        <div class="card-matte p-6 rounded-xl border-l-2 border-l-emerald-400">
-          <div class="w-9 h-9 rounded-lg bg-matte-850 border border-matte-border flex items-center justify-center font-mono text-emerald-400 mb-4 font-bold text-sm">
-            03
-          </div>
-          <h3 class="text-lg font-semibold text-white mb-2">Research & Academic PoC Mentorship</h3>
-          <p class="text-slate-400 text-sm leading-relaxed mb-4">
-            Advising engineering students, researchers, and early-stage makers on transforming experimental hardware concepts into functional, testable prototypes.
-          </p>
-          <ul class="text-xs font-mono text-slate-400 space-y-1.5 border-t border-matte-border pt-4">
-            <li class="flex items-center gap-2">
-              <span class="text-emerald-400">→</span> Architecture validation & selection
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="text-emerald-400">→</span> Firmware review & unblocking
-            </li>
-            <li class="flex items-center gap-2">
-              <span class="text-emerald-400">→</span> Automated test bench guidance
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-        <div class="space-y-1">
-          <h2 class="text-xs font-mono uppercase tracking-widest text-accent-emerald">// 03. Selected Works</h2>
-          <p class="text-2xl sm:text-3xl font-bold text-white">Production Firmware & Applied PoCs</p>
-        </div>
-        <a href="https://github.com/benedictbabu" target="_blank" rel="noreferrer" class="text-xs font-mono text-accent-cyan hover:underline inline-flex items-center gap-1">
-          Explore all repositories on GitHub →
-        </a>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <!-- Project 1 -->
-        <div class="card-matte p-6 rounded-xl flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between text-[11px] font-mono">
-              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-accent-emerald border border-emerald-500/30">Commercial</span>
-              <span class="text-slate-500">STM32F4 + Cellular</span>
-            </div>
-            <h3 class="text-lg font-bold text-white">Industrial IoT Gateway & Telemetry Node</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              Resilient edge telematics device polling industrial Modbus sensors with secure transmission via MQTT over TLS. Implemented dual-bank flash failback recovery for robust field deployment.
-            </p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-matte-border space-y-3">
-            <div class="flex flex-wrap gap-1 font-mono text-[10px] text-slate-300">
-              <span class="px-2 py-0.5 rounded bg-matte-850">FreeRTOS</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">C</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">LTE-M</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">Modbus</span>
-            </div>
-            <div class="flex items-center justify-between text-xs font-mono pt-1 text-slate-400">
-              <span>Production Deployed</span>
-              <a href="https://github.com/benedictbabu" target="_blank" rel="noreferrer" class="text-accent-emerald hover:underline">Source / Specs ↗</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 2 -->
-        <div class="card-matte p-6 rounded-xl flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between text-[11px] font-mono">
-              <span class="px-2 py-0.5 rounded bg-sky-500/10 text-accent-cyan border border-sky-500/30">Ultra Low Power</span>
-              <span class="text-slate-500">nRF52840</span>
-            </div>
-            <h3 class="text-lg font-bold text-white">RTOS Low-Power BLE Sensor Tag</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              Sub-12µA average current telemetry beacon monitoring environmental factors. Utilized Zephyr RTOS power management hooks, flash ring-buffers, and encrypted BLE Long Range advertisements.
-            </p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-matte-border space-y-3">
-            <div class="flex flex-wrap gap-1 font-mono text-[10px] text-slate-300">
-              <span class="px-2 py-0.5 rounded bg-matte-850">Zephyr RTOS</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">BLE 5.2</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">SPI Sensors</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">Nordic PPK</span>
-            </div>
-            <div class="flex items-center justify-between text-xs font-mono pt-1 text-slate-400">
-              <span>Verified on Bench</span>
-              <a href="https://github.com/benedictbabu" target="_blank" rel="noreferrer" class="text-accent-cyan hover:underline">Source / Specs ↗</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="card-matte p-6 rounded-xl flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between text-[11px] font-mono">
-              <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-accent-emerald border border-emerald-500/30">BSP / Linux</span>
-              <span class="text-slate-500">NXP i.MX / Allwinner</span>
-            </div>
-            <h3 class="text-lg font-bold text-white">Custom Yocto BSP & Carrier Bring-Up</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              Bespoke Linux image creation using custom Yocto layers. Configured U-Boot splash screens, custom device tree overlays for specialized I2C peripheral chips, and PyTest validation rigs.
-            </p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-matte-border space-y-3">
-            <div class="flex flex-wrap gap-1 font-mono text-[10px] text-slate-300">
-              <span class="px-2 py-0.5 rounded bg-matte-850">Yocto / BitBake</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">Linux Kernel</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">Device Tree</span>
-              <span class="px-2 py-0.5 rounded bg-matte-850">U-Boot</span>
-            </div>
-            <div class="flex items-center justify-between text-xs font-mono pt-1 text-slate-400">
-              <span>Commercial Hardware</span>
-              <a href="https://github.com/benedictbabu" target="_blank" rel="noreferrer" class="text-accent-emerald hover:underline">Source / Specs ↗</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="p-8 sm:p-10 rounded-2xl bg-matte-900 border border-matte-border space-y-4">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-accent-emerald">// 04. Background</h2>
-      <h3 class="text-2xl font-bold text-white">Reliable firmware from bare metal to edge connectivity.</h3>
-      <div class="text-slate-400 text-sm leading-relaxed space-y-3 max-w-3xl">
-        <p>
-          I am Benedict Babu, an Embedded Firmware Engineer and IoT Consultant. My work centers on building maintainable low-level software that performs reliably in the field—whether optimizing sleep states down to single-digit microamps, crafting clean RTOS architectures, or unblocking tricky hardware bring-ups.
-        </p>
-        <p>
-          Beyond commercial consulting for startups and hardware companies, I dedicate time to consulting with student teams, academic researchers, and makers on proof-of-concept builds, schematic validation, and test automation.
-        </p>
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="pt-4 pb-8 space-y-8">
-      <div class="text-center max-w-2xl mx-auto space-y-3">
-        <h2 class="text-xs font-mono uppercase tracking-widest text-accent-emerald">// 05. Get In Touch</h2>
-        <p class="text-3xl font-extrabold text-white">Let's talk hardware & firmware</p>
-        <p class="text-slate-400 text-sm">
-          Have an IoT product in development, need advice on a proof of concept, or need an embedded firmware consultant? Reach out directly.
-        </p>
-      </div>
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">// 05. Get In Touch</div>
+          <div class="section-sub">Let's talk hardware &amp; firmware</div>
+          <p style="color: var(--text-muted); margin-top: 0.5rem;">Have an IoT product in development, need advice on a proof of concept, or need an embedded firmware consultant? Reach out directly.</p>
+        </div>
 
-      <div class="max-w-xl mx-auto card-matte p-6 sm:p-8 rounded-2xl space-y-6">
-        
-        <!-- Direct Email Link -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl bg-matte-900 border border-matte-border">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-matte-850 flex items-center justify-center text-accent-emerald">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            </div>
-            <div>
-              <div class="text-[11px] font-mono text-slate-400">Direct Email</div>
-              <a href="mailto:benedictbabu@hotmail.com" class="text-sm font-mono text-white hover:text-accent-emerald transition break-all">benedictbabu@hotmail.com</a>
-            </div>
+        <div class="card" style="max-width: 600px;">
+          <div style="margin-bottom: 1.5rem;">
+            <div class="card-meta">Direct Email</div>
+            <a href="mailto:benedictbabu@hotmail.com" style="color: var(--accent); font-family: var(--font-mono); font-size: 1.1rem;">benedictbabu@hotmail.com</a>
           </div>
-          <button onclick="copyEmailToClipboard()" class="w-full sm:w-auto px-3.5 py-1.5 text-xs font-mono rounded-lg bg-matte-800 hover:bg-matte-700 text-slate-200 border border-matte-border transition">
-            Copy
-          </button>
+
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="mailto:benedictbabu@hotmail.com?subject=Embedded%20Consulting%20/%20PoC%20Inquiry" class="btn btn-primary">
+              Send Email Inquiry →
+            </a>
+            <a 
+              href="mailto:benedictbabu@hotmail.com?subject=Resume%20Request%20-%20Benedict%20Babu&body=Hi%20Benedict,%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20request%20a%20copy%20of%20your%20resume.%0D%0A%0D%0ACompany%20/%20Organization:%20%0D%0ARole%20Details:%20%0D%0A%0D%0ABest%20regards," 
+              class="btn btn-outline"
+            >
+              Request Resume ↗
+            </a>
+          </div>
         </div>
-
-        <!-- Social / Professional Links -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-          <a href="https://www.linkedin.com/in/-benedictbabu/" target="_blank" rel="noreferrer" class="p-3.5 rounded-xl bg-matte-900 border border-matte-border hover:border-slate-500 text-slate-200 flex items-center justify-between group transition">
-            <span class="flex items-center gap-2">
-              <svg class="w-4 h-4 fill-current text-slate-400 group-hover:text-accent-cyan transition" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              LinkedIn Profile
-            </span>
-            <span class="text-slate-500 group-hover:text-slate-300">↗</span>
-          </a>
-
-          <a href="https://github.com/benedictbabu" target="_blank" rel="noreferrer" class="p-3.5 rounded-xl bg-matte-900 border border-matte-border hover:border-slate-500 text-slate-200 flex items-center justify-between group transition">
-            <span class="flex items-center gap-2">
-              <svg class="w-4 h-4 fill-current text-slate-400 group-hover:text-accent-emerald transition" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub Repos
-            </span>
-            <span class="text-slate-500 group-hover:text-slate-300">↗</span>
-          </a>
-        </div>
-
-        <div class="text-center">
-          <a href="mailto:benedictbabu@hotmail.com?subject=Embedded%20Consulting%20/%20PoC%20Inquiry" class="inline-block w-full py-3 rounded-xl bg-accent-emerald text-matte-950 font-bold font-mono text-xs hover:bg-emerald-400 transition shadow-lg glow-pill">
-            Send an Email Inquiry →
-          </a>
-        </div>
-
       </div>
     </section>
-
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-matte-border py-8 bg-matte-950 text-xs font-mono text-slate-500">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <footer>
+    <div class="container footer-content">
       <div>
-        © <span id="year"></span> Benedict Babu. All rights reserved.
+        &copy; <span id="year"></span> Benedict Babu. All rights reserved.
       </div>
-      <div class="flex items-center gap-6">
-        <a href="#hero" class="hover:text-slate-300 transition">Back to top ↑</a>
-        <a href="https://github.com/benedictbabu" target="_blank" rel="noreferrer" class="hover:text-slate-300 transition">GitHub</a>
-        <a href="https://www.linkedin.com/in/-benedictbabu/" target="_blank" rel="noreferrer" class="hover:text-slate-300 transition">LinkedIn</a>
+      <div class="footer-links">
+        <a href="#hero">Back to top &uarr;</a>
+        <a href="https://github.com/benedictbabu" rel="noreferrer" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/-benedictbabu/" rel="noreferrer" target="_blank">LinkedIn</a>
       </div>
     </div>
   </footer>
 
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-4 py-2.5 rounded-lg bg-matte-800 text-white border border-matte-border shadow-2xl font-mono text-xs flex items-center gap-2">
-    <svg class="w-4 h-4 text-accent-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-    <span id="toastMsg">benedictbabu@hotmail.com copied to clipboard!</span>
-  </div>
-
   <script>
-    // Current Year
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Copy to clipboard helper
-    function copyEmailToClipboard() {
-      const email = 'benedictbabu@hotmail.com';
-      const tempInput = document.createElement('textarea');
-      tempInput.value = email;
-      tempInput.style.position = 'fixed';
-      tempInput.style.opacity = '0';
-      document.body.appendChild(tempInput);
-      tempInput.select();
-
-      try {
-        document.execCommand('copy');
-        showToast('Email address copied to clipboard!');
-      } catch (err) {
-        window.location.href = `mailto:${email}`;
-      } finally {
-        document.body.removeChild(tempInput);
-      }
-    }
-
-    // Toast Alert
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      const toastMsg = document.getElementById('toastMsg');
-      toastMsg.textContent = message;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      toast.classList.add('translate-y-0', 'opacity-100');
-      
-      setTimeout(() => {
-        toast.classList.remove('translate-y-0', 'opacity-100');
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2500);
-    }
   </script>
 </body>
 </html>
